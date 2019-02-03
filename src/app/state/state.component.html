@@ -1,0 +1,67 @@
+<div class="container" *ngIf="loaded == 3">
+  <br />
+  <div class="row">
+    <h4>
+      Controller Connector state
+    </h4>
+  </div>
+  <div class="row">
+    <div class="col-md-2">State:</div>
+    <div class="col-md-4">
+      {{ ccState.connected ? 'Connected!' : 'Not Connected!' }}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2">URL:</div>
+    <div class="col-md-4">{{ ccState.url }}</div>
+  </div>
+  <hr />
+  <div class="row">
+    <h4>
+      Request Router Info:
+    </h4>
+  </div>
+  <div class="row">
+    <div class="col-md-3">Name:</div>
+    <div class="col-md-2">{{ rrData.rr.name }}</div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">Domain:</div>
+    <div class="col-md-2">{{ rrData.rr.domain }}</div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">IP:</div>
+    <div class="col-md-2">{{ rrData.rr.ip }}</div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">Port:</div>
+    <div class="col-md-2">{{ rrData.rr.port }}</div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">SE Count:</div>
+    <div class="col-md-2">{{ rrData.rr.ses.length }}</div>
+  </div>
+  <hr />
+  <div class="row">
+    <h4>
+      Service Engines:
+    </h4>
+  </div>
+  <div>
+    <div class="row">
+      <div class="col-md-6 p-3" *ngFor="let se of rrData.rr.ses">
+        <h5>
+          Service Engine {{se.name}}
+        </h5>
+        <div class="row">
+          <div class="col-md-6">Domain:</div>
+          <div class="col-md-6">{{se.domain}}</div>
+          <div class="col-md-6">IP:</div>
+          <div class="col-md-6">{{se.ip}}</div>
+          <div class="col-md-6">Port:</div>
+          <div class="col-md-6">{{se.port}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
