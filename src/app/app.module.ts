@@ -5,12 +5,14 @@ import { AppComponent } from './app.component';
 import { TopologyComponent } from './topology/topology.component';
 import { HttpClientModule } from '@angular/common/http';
 import { StateComponent } from './state/state.component';
+import { SessionsComponent } from './sessions/sessions.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TopologyComponent,
-    StateComponent
+    StateComponent,
+    SessionsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Resolve } from '@angular/router';
+import { Resolve, Router } from '@angular/router';
 import { ReqNrouterService } from '../services/req-nrouter.service';
+import { catchError, map } from 'rxjs/operators';
+import { throwError, of, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TopologyResolver implements Resolve<any> {
-  constructor(private reqNservice: ReqNrouterService) {}
+  constructor(private reqNservice: ReqNrouterService, private router: Router) {}
 
   resolve() {
     return this.reqNservice.getTopology();

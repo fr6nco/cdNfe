@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Network, DataSet } from 'vis';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Data } from '@angular/router';
 import { isNumber, isString } from 'util';
 
 interface TopoNode {
@@ -31,7 +31,7 @@ export class TopologyComponent implements OnInit {
 
   constructor(private route: ActivatedRoute) {}
 
-  private addGroup(node: {id: string | number, label: string}) {
+  private addGroup(node: { id: string | number; label: string }) {
     let group = null;
     const label = node.label;
     if (isNumber(node.id)) {
@@ -41,11 +41,13 @@ export class TopologyComponent implements OnInit {
       if (node.id === this.assetData.rr.ip) {
         group = 'RR';
       } else {
-        this.assetData.rr.ses.forEach((se: {ip: string, port: number, name: string, domain: string}) => {
-          if (se.ip === node.id) {
-            group = 'SE';
+        this.assetData.rr.ses.forEach(
+          (se: { ip: string; port: number; name: string; domain: string }) => {
+            if (se.ip === node.id) {
+              group = 'SE';
+            }
           }
-        });
+        );
         if (group === null) {
           group = 'CL';
         }
@@ -60,35 +62,33 @@ export class TopologyComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.route.data.subscribe((value: Data) => {
+      console.log(value);
+    });
+
     this.toplogyData = this.route.snapshot.data.topo;
     this.assetData = this.route.snapshot.data.assets;
 
     const nodes = new DataSet(
-      this.toplogyData.nodes.map((e: TopoNode) => {
-        return {
+      this.toplogyData.nodes
+        .map((e: TopoNode) => ({
           id: e.id,
-          label: e.id.toString(),
-        };
-      }).map((e) => {
-        return this.addGroup(e);
-      })
+          label: e.id.toString()
+        }))
+        .map(e => this.addGroup(e))
     );
 
     const edges = new DataSet(
       this.toplogyData.links
-        .map((e: TopoLink | TopoHostLink) => {
-          return {
-            from: e.source,
-            to: e.target
-          };
-        })
-        .filter((e: { from: any; to: any }) => {
-          return (
+        .map((e: TopoLink | TopoHostLink) => ({
+          from: e.source,
+          to: e.target
+        }))
+        .filter((e: { from: any; to: any }) =>
             (isNumber(e.from) && isNumber(e.to) && e.from < e.to) ||
             (isNumber(e.from) && isNaN(e.to))
-          );
-        })
-    );
+        ));
 
     // provide the data in the vis format
     const data = {

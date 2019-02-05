@@ -1,0 +1,48 @@
+<div class="container" *ngIf="loaded == 3">
+  <br />
+  <div class="row">
+    <h4>
+      Sessions pre-established from Request Router:
+    </h4>
+  </div>
+  <div class="row">
+    <div class="col-md-12 p-3" *ngFor="let ses of rrSessions.sessions">
+      <h5>To Service Engine: {{ ses.se_name }}</h5>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row" *ngFor="let session of ses.sessions">
+            <div class="col-md-6">
+              {{ session.src_ip }}:{{ session.src_port }} &lt;-&gt;
+              {{ session.dst_ip }}:{{ session.dst_port }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+    <h4>
+      Sessions registered on SDN Controller:
+    </h4>
+  </div>
+  <div class="row">
+    <div class="col-md-6 p-3" *ngFor="let session of cntSessions">
+      <div class="row">
+        <div class="col-md-2">Type:</div>
+        <div class="col-md-10">{{ session.type }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">Session:</div>
+        <div class="col-md-10">
+          {{ session.src_ip }}:{{ session.src_port }} &lt;-&gt;
+          {{ session.dst_ip }}:{{ session.dst_port }}
+        </div>
+      </div>
+      <div class="row">
+          <div class="col-md-2">State:</div>
+          <div class="col-md-10">{{ session.state }}</div>
+      </div>
+    </div>
+  </div>
+</div>

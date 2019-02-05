@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { TopologyComponent } from './topology/topology.component';
 import { TopologyResolver, AssetResolver } from './resolvers/topology.resolver';
 import { StateComponent } from './state/state.component';
+import { SessionsComponent } from './sessions/sessions.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: 'state',
     component: StateComponent
+  },
+  {
+    path: 'sessions',
+    component: SessionsComponent
   }
 ];
 

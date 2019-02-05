@@ -23,8 +23,23 @@ export class ReqNrouterService {
 
   getPeriodicState() {
     return merge(
-        timer(0, 2000).pipe(switchMap(_ => this.getCCState())),
-        timer(0, 2000).pipe(switchMap(_ => this.getAssets())));
+        timer(0, 10000).pipe(switchMap(_ => this.getCCState())),
+        timer(0, 10000).pipe(switchMap(_ => this.getAssets())));
+  }
+
+  getSessions() {
+    return this.http.get(this.endpoint + '/rr/sessions');
+  }
+
+  getCNTSessions() {
+    return this.http.get(this.endpoint + '/rr/sessionscnt');
+  }
+
+  getPeriodicSessionState() {
+    return merge(
+        timer(0, 2000).pipe(switchMap(_ => this.getSessions())),
+        timer(0, 2000).pipe(switchMap(_ => this.getCNTSessions()))
+    );
   }
 
   constructor(private http: HttpClient) {}
