@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { timer, merge } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReqNrouterService {
-  endpoint = 'http://localhost:3000';
+  endpoint: string;
 
   getTopology() {
     return this.http.get(this.endpoint + '/rr/topology');
@@ -42,5 +43,7 @@ export class ReqNrouterService {
     );
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.endpoint = environment.backend_api;
+  }
 }
