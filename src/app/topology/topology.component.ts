@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Network, DataSet } from 'vis';
 import { ActivatedRoute, Data } from '@angular/router';
 import { isNumber, isString } from 'util';
+import { environment } from '../../environments/environment';
 
 interface TopoNode {
   id: number | string;
@@ -48,6 +49,9 @@ export class TopologyComponent implements OnInit {
             }
           }
         );
+        if (node.id === environment.dns_ip) {
+          group = 'DNS';
+        }
         if (group === null) {
           group = 'CL';
         }
@@ -115,6 +119,10 @@ export class TopologyComponent implements OnInit {
         SE: {
           shape: 'image',
           image: 'assets/img/database.png'
+        },
+        DNS: {
+          shape: 'image',
+          image: 'assets/img/dns.png'
         }
       }
     };

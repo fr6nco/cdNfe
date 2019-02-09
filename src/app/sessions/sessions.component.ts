@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ReqNrouterService } from '../services/req-nrouter.service';
 
@@ -7,7 +7,7 @@ import { ReqNrouterService } from '../services/req-nrouter.service';
   templateUrl: './sessions.component.html',
   styleUrls: ['./sessions.component.css']
 })
-export class SessionsComponent implements OnInit {
+export class SessionsComponent implements OnInit, OnDestroy {
   private sessionSubscription: Subscription;
   rrSessions: any;
   rrData: any;
@@ -20,7 +20,6 @@ export class SessionsComponent implements OnInit {
     this.sessionSubscription = this.reqNrouter
       .getPeriodicSessionState()
       .subscribe((data: any) => {
-        console.log(data);
         if ('sessions' in data) {
           this.rrSessions = data;
           this.loaded |= 1;
@@ -33,5 +32,9 @@ export class SessionsComponent implements OnInit {
           console.log(this.cntSessions);
         }
       });
+  }
+
+  ngOnDestroy() {
+    this.sessionSubscription.unsubscribe();
   }
 }

@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  backend_api: 'http://localhost:3000'
+  backend_api: 'http://localhost:3000',
+  dns_ip: '10.11.0.99'
 };
 
 /*
